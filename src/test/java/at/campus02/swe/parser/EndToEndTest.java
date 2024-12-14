@@ -57,6 +57,18 @@ public class EndToEndTest {
 		assertEquals(1.0, result, 0); // cos 0 = 1
 	}
 
+	@Test
+	public void TestDotproduct() throws Exception {
+
+		//Hint: echter Calculator
+		Calculator cal = new CalculatorImpl();
+
+		Parser parser = new Parser(cal);
+		double result = parser.parse(new File("src/test/resources/TestDotproduct.xml"));
+
+		assertEquals(14.0, result, 0); // cos 0 = 1
+	}
+
 
 
 }

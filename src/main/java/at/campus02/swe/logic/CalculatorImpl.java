@@ -5,6 +5,8 @@ import at.campus02.swe.Calculator;
 import at.campus02.swe.CalculatorException;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Stack;
 
 public class CalculatorImpl implements Calculator {
@@ -15,15 +17,16 @@ public class CalculatorImpl implements Calculator {
 	public double perform(Operation op) throws CalculatorException {
 
 		//sin and cos only need ONE var
-		ArrayList<Operation> operationsOnlyNeedOneInput = new ArrayList<>();
-		operationsOnlyNeedOneInput.add(Operation.cos);
-		operationsOnlyNeedOneInput.add(Operation.sin);
+		ArrayList<Operation> onlyPopOnce = new ArrayList<>();
+		onlyPopOnce.add(Operation.cos);
+		onlyPopOnce.add(Operation.sin);
+		onlyPopOnce.add(Operation.dotproduct);
 
 		double b = pop();
 		double a = 0.0;
 
 		//check if you need more than 1 var
-		if (!operationsOnlyNeedOneInput.contains(op))
+		if (!onlyPopOnce.contains(op))
 			a = pop();
 
 		switch (op) {
@@ -49,9 +52,40 @@ public class CalculatorImpl implements Calculator {
 			//implement cos
 			case cos:
 				return Math.cos(b);
+			case dotproduct:
+				return CalcDotProduct(b);
 		}
 		return 0;
 	}
+
+	private double CalcDotProduct(double dimension) throws CalculatorException{
+		int dimensionToInt = (int) Math.floor(dimension);
+
+		if(dimensionToInt < 2 )
+			throw new CalculatorException("Dimension of vector is illegal.");
+
+		ArrayList<Double> VectorA = GetVectorList(dimensionToInt);
+		ArrayList<Double> VectorB = GetVectorList(dimensionToInt);
+
+		double result = 0.0;
+		for (int i = 0; i < VectorA.size(); i++) {
+			result += VectorA.get(i) * VectorB.get(i);
+		}
+
+		return result;
+	}
+
+	private ArrayList<Double> GetVectorList(int dimension) throws CalculatorException {
+		ArrayList<Double> tempList = new ArrayList<>();
+
+		for (int i = 0; i < dimension ; i++) {
+			tempList.add(pop());
+		}
+		Collections.reverse(tempList);
+
+		return tempList;
+	}
+
 
 	@Override
 	public double pop() throws CalculatorException {

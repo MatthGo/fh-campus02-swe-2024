@@ -146,4 +146,49 @@ public class CalculatorTest {
 		double result = calc.perform(Operation.cos);
 		assertEquals(1, result, 0);
 	}
+
+	@Test
+	public void TestSkalar() throws Exception {
+
+		//Setup
+		Calculator calc = new CalculatorImpl();
+		// |1| |2|
+ 		// |3| |4|
+
+		// 1*2 + 3*4 = 14
+
+		calc.push(1);
+		calc.push(3);
+		calc.push(2);
+		calc.push(4);
+
+		//Dimesion Vector
+		calc.push(2);
+		double result = calc.perform(Operation.dotproduct);
+		assertEquals(14, result, 0);
+	}
+
+	@Test
+	public void TestSkalarDimensionError() throws Exception {
+
+		//Setup
+		Calculator calc = new CalculatorImpl();
+		try {
+			calc.push(1);
+			calc.push(3);
+			calc.push(2);
+			calc.push(4);
+
+			//Dimesion Vector
+			calc.push(1);
+			calc.perform(Operation.dotproduct);
+
+			fail("Exception expected");
+
+
+		} catch (CalculatorException e) {
+			assertEquals("Dimension of vector is illegal.", e.getMessage());
+			// e.getCause()
+		}
+	}
 }
