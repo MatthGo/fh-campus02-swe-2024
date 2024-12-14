@@ -34,6 +34,28 @@ public class EndToEndTest {
 
 		assertEquals(1.0, result, 0); // 5%2 = 1
 	}
+	@Test
+	public void TestSin() throws Exception {
+
+		//Hint: echter Calculator
+		Calculator cal = new CalculatorImpl();
+
+		Parser parser = new Parser(cal);
+		double result = parser.parse(new File("src/test/resources/TestSin.xml"));
+
+		assertEquals(0.0, result, 0); // sin 0 = 0
+	}
+	@Test
+	public void TestCos() throws Exception {
+
+		//Hint: echter Calculator
+		Calculator cal = new CalculatorImpl();
+
+		Parser parser = new Parser(cal);
+		double result = parser.parse(new File("src/test/resources/TestCos.xml"));
+
+		assertEquals(1.0, result, 0); // cos 0 = 1
+	}
 
 
 
