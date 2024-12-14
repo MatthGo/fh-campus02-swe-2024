@@ -86,6 +86,8 @@ public class Parser {
 		//add "cos" for Parser (xml)
 		else if ("cos".equals(value))
 			return Operation.cos;
+		else if ("dotproduct".equals(value))
+			return Operation.dotproduct;
 
 		throw new CalculatorException("Unsupported Operation!");
 	}
